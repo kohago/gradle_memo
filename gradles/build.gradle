@@ -1,0 +1,54 @@
+// << (lefeShift) is equals to doLast
+//gradle -q helloWorld1 (-q is --quite)
+//the task name is not case sensitive 
+// {{ }} is the groovy's action/closure
+task helloWorld1 << {
+   println "Hello, World1"
+}
+
+task helloWorld2 {
+  doLast{
+     println "Hello, World2"
+   }
+}
+//[gradle tasks / gradle tasks --all] 3 will be execute!
+//tasks: display the tasks runnable from root project
+task helloWorld3 {
+     println "Hello, World3"
+}
+
+task helloWorld4 {
+     println "Hello, World4"
+}
+
+//add description
+task helloWorld5 {
+     description="this is helloWorld5"
+     
+     doLast {
+       println "Hello, World5"
+     }
+}
+
+//gladle testGroovy -q
+task testGroovy << {
+     println "Upper Test "
+     String test= "Hello, World4"
+     println "Original: " + test
+     println "Upper case:" + test.toUpperCase()
+     
+     println ""
+     println "count"
+     4.times { 
+     print " hi "
+      }
+}
+//gradle -q testDependsOn
+task testDependsOn(dependsOn: helloWorld1) << {
+  println "I denpends on helloWorld1,so it will be execute firstly!"
+}
+
+//gradle -q testDependsOn
+task testDependsOnMore(dependsOn: [helloWorld1,helloWorld2]) << {
+  println "I denpends on helloWorld1,helloWorld2,so it will be execute firstly!"
+}
