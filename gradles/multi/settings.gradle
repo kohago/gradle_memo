@@ -1,0 +1,5 @@
+println "setting.grale: be execute during the initialization phase"
+
+//include 'services:hotels:api' = include 'services','services:hotels','services:hotels:api'
+//gradle -u ==>always be a single project,without searching parent project
+//settings.gradle ===>multi project tree 

@@ -1,0 +1,5 @@
+allprojects {
+  afterEvaluate { project -> 
+         println "this is  $project"
+      }
+}

@@ -1,0 +1,24 @@
+//initialization->configuration->execution
+println "bulid first line : be executed during the configuration phase"
+
+task withoutLeftShift {
+    println "withoutLeftShift: be exexuted during configuration phase"
+}
+
+task normal << {
+   println "normal: be executed during execation phase"
+}
+
+//gradle noraml both
+task both  {
+
+   doFirst{
+      println "both doFirst: be executed during execation phase"
+   }
+   
+   doLast{
+       println "both doLast	: be executed during execation phase"
+   }
+   
+   println "both: be executed during configuration phase"
+}

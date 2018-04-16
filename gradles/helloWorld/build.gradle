@@ -52,3 +52,12 @@ task testDependsOn(dependsOn: helloWorld1) << {
 task testDependsOnMore(dependsOn: [helloWorld1,helloWorld2]) << {
   println "I denpends on helloWorld1,helloWorld2,so it will be execute firstly!"
 }
+
+//dynamic tasks and dependsOn
+//gradle -q taskDynamic3
+4.times { couter -> 
+   task "testDynamic$couter" << {
+          println "I am taskDynamic $couter "
+        }
+}
+testDynamic3.dependsOn testDynamic2,testDynamic1
