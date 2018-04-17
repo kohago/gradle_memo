@@ -22,3 +22,50 @@ task both  {
    
    println "both: be executed during configuration phase"
 }
+
+Closure cl={
+ task -> println "I am cl $task.project.name"
+}
+
+//gradle -q hello
+task hello << cl 
+
+project(':sub1') {
+   task hello << cl
+}
+
+// gradle -q hello2
+// cd sub1 ==> gradle -q hello2
+// cd ..
+// gradle -q sub2:hello2
+allprojects{
+  task hello2 << { 
+    task -> 
+         println ""
+         // double quotation will explain $task
+         println "hello2 with double quotation: i am $task.project.name" 
+         // single quotation will not  explain $task
+         println 'hello2 with single quotation: i am $task.project.name'
+  }
+}
+
+subprojects {
+   //You may only construct a task once in a project, 
+   //but you may any number of code blocks providing additional configuration.
+  hello2 {
+    doLast { println "--I am a sub project" }
+    afterEvaluate { Project project -> 
+       if (project.active) {
+          doLast { println "me: $project.name is active!! "}
+       }
+    }
+   }
+}
+
+project(':sub2'){
+  hello2 << { println "this a special code for sub2 project"}
+}
+
+configure(subprojects.findAll {it.name != "sub3" } ){
+  hello2 << { println "some option for specail projects"}
+}

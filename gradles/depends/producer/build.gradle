@@ -1,0 +1,5 @@
+task action << {
+  println "Producing messages:"
+  rootProject.producerMessage = 'Watch the order of execution.'
+
+}
